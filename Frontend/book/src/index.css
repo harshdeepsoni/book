@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* === Bookstore Editorial Palette === */
+    --color-primary:        #0F766E;
+    --color-primary-dark:   #115E59;
+    --color-primary-light:  #2DD4BF;
+
+    --color-bg:             #FFFFFF;
+    --color-bg-soft:        #F6F8FB;
+    --color-bg-card:        #FFFFFF;
+
+    --color-text:           #172033;
+    --color-text-muted:     #64748B;
+    --color-text-light:     #9CA3AF;
+
+    --color-border:         #DDE5EE;
+    --color-border-soft:    #EEF3F7;
+
+    --color-secondary:      #E11D48;
+    --color-secondary-light:#FB7185;
+    --color-accent:         #F59E0B;
+    --color-success:        #22C55E;
+
+    /* === Legacy aliases (so old component classes still work) === */
+    --color-burgundy:       #0F766E;
+    --color-burgundy-dark:  #115E59;
+    --color-burgundy-light: #2DD4BF;
+    --color-gold:           #F59E0B;
+    --color-gold-dark:      #D97706;
+    --color-cream:          #FFFFFF;
+    --color-cream-dark:     #F6F8FB;
+    --color-charcoal:       #172033;
+    --color-charcoal-light: #334155;
+    --color-forest:         #22C55E;
+    --color-forest-light:   #4ADE80;
+  }
+
+  body {
+    @apply bg-[var(--color-bg)] text-[var(--color-text)];
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  body.dark {
+    background-color: #0B1220;
+    color: #E6EDF5;
+    --color-primary:        #2DD4BF;
+    --color-primary-dark:   #14B8A6;
+    --color-primary-light:  #5EEAD4;
+    --color-bg:             #0B1220;
+    --color-bg-soft:        #111827;
+    --color-bg-card:        #172033;
+    --color-text:           #E6EDF5;
+    --color-text-muted:     #A7B3C4;
+    --color-border:         #263449;
+    --color-border-soft:    #1B2738;
+    --color-secondary:      #FB7185;
+    --color-secondary-light:#FDA4AF;
+    --color-accent:         #FBBF24;
+    /* legacy aliases in dark */
+    --color-burgundy:       #2DD4BF;
+    --color-burgundy-dark:  #14B8A6;
+    --color-burgundy-light: #5EEAD4;
+    --color-gold:           #FBBF24;
+    --color-gold-dark:      #F59E0B;
+    --color-cream:          #E6EDF5;
+    --color-cream-dark:     #111827;
+    --color-charcoal:       #E6EDF5;
+    --color-charcoal-light: #CBD5E1;
+    --color-forest:         #4ADE80;
+    --color-forest-light:   #86EFAC;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+
+  /* ====== Card hover — subtle lift ====== */
+  .bubble-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .bubble-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 42px rgba(15, 118, 110, 0.16);
+  }
+
+  /* ====== Gradient — single blue, not rainbow ====== */
+  .gradient-rainbow,
+  .gradient-burgundy-gold {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 46%, var(--color-secondary) 100%);
+  }
+
+  /* ====== Stagger fade in ====== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .stagger-item { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
+  .stagger-item:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-item:nth-child(2) { animation-delay: 0.1s;  }
+  .stagger-item:nth-child(3) { animation-delay: 0.15s; }
+  .stagger-item:nth-child(4) { animation-delay: 0.2s;  }
+  .stagger-item:nth-child(5) { animation-delay: 0.25s; }
+  .stagger-item:nth-child(6) { animation-delay: 0.3s;  }
+
+  /* ====== Float (gentle) ====== */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-12px); }
+  }
+  .float-animation { animation: float 6s ease-in-out infinite; }
+
+  /* ====== Bounce pulse (gentle) ====== */
+  @keyframes bouncePulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.04); }
+  }
+  .bounce-pulse { animation: bouncePulse 3s ease-in-out infinite; }
+
+  /* ====== Pop in ====== */
+  @keyframes popIn {
+    0%   { opacity: 0; transform: scale(0.85); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .pop-in { animation: popIn 0.4s ease-out forwards; opacity: 0; }
+
+  /* ====== Sparkle — very subtle ====== */
+  @keyframes sparkle {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.6; }
+  }
+  .sparkle { animation: sparkle 2s ease-in-out infinite; }
+
+  /* ====== Shimmer ====== */
+  @keyframes shimmer {
+    0%   { background-position: -1000px 0; }
+    100% { background-position:  1000px 0; }
+  }
+  .shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(79,106,240,0.06) 50%, transparent 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  /* ====== Wobble — removed, noop ====== */
+  .wobble-hover:hover { }
+
+  /* ====== Elegant underline ====== */
+  .elegant-underline { position: relative; display: inline-block; }
+  .elegant-underline::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -3px;
+    width: 0; height: 2px;
+    background: var(--color-primary);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+  }
+  .elegant-underline:hover::after { width: 100%; }
+
+  /* ====== Book spine ====== */
+  .book-spine { position: relative; overflow: hidden; }
+  .book-spine::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--color-primary);
+    opacity: 0.15;
+  }
+
+  /* ====== Page turn ====== */
+  .page-turn { transition: transform 0.4s ease; }
+  .page-turn:hover { transform: perspective(1000px) rotateY(-2deg); }
+
+  /* ====== Paper / book texture → clean dot pattern ====== */
+  .paper-texture,
+  .book-texture {
+    background-image: radial-gradient(circle, rgba(15,118,110,0.055) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .dark .paper-texture,
+  .dark .book-texture {
+    background-image: radial-gradient(circle, rgba(45,212,191,0.09) 1px, transparent 1px);
+  }
+
+  /* ====== Dot bg (same as paper) ====== */
+  .dot-bg {
+    background-image: radial-gradient(circle, rgba(15,118,110,0.055) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* ====== Blob (noop — no colorful blobs) ====== */
+  .blob { }
+
+  /* ====== Wavy underline ====== */
+  .wavy-underline {
+    text-decoration: underline var(--color-primary) 2px;
+    text-underline-offset: 5px;
+  }
+
+  /* ====== Badge pill ====== */
+  .fun-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 12px; border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; font-size: 0.7rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+
+  /* ====== Scrollbar ====== */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--color-bg-soft); }
+  ::-webkit-scrollbar-thumb {
+    background: #D1D5DB;
+    border-radius: 999px;
+    border: 2px solid var(--color-bg-soft);
+  }
+  .dark ::-webkit-scrollbar-thumb { background: #374151; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+  /* ====== Ornamental divider ====== */
+  .ornamental-divider { position: relative; text-align: center; margin: 3rem 0; }
+  .ornamental-divider::before,
+  .ornamental-divider::after {
+    content: '';
+    position: absolute; top: 50%;
+    width: 45%; height: 1px;
+    background: var(--color-border);
+  }
+  .ornamental-divider::before { left: 0; }
+  .ornamental-divider::after  { right: 0; }
+  .ornamental-divider span {
+    display: inline-block; padding: 0 1rem;
+    background: var(--color-bg);
+    color: var(--color-text-muted); font-size: 1.2rem;
+  }
+  .dark .ornamental-divider span { background: #0F1117; }
+
+  /* ====== Literary quote ====== */
+  .literary-quote {
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    font-style: italic; font-size: 1.05rem;
+    line-height: 1.8; padding-left: 1.5rem;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 4px 4px 0;
+  }
+  .literary-quote::before { display: none; }
+}
+
+/* ====== Selection ====== */
+::selection { background: var(--color-primary); color: #fff; }
